@@ -1,20 +1,19 @@
 import itertools
 
 
-def join(*lists, sep='-'):
+def join(*lists : list, separator : str='-') -> list or None:
     """
-    The function receives an unlimited number of lists and another parameter called sep (optional)
-    and returns one list consisting of all the lists received as parameters. If the sep parameter is provided,
-    it threads it as an object between any two lists, and if it is not provided, it threads the character "-" instead.
-    :param lists: The lists to be merged into one list.
-    :param sep: The separator between the lists.
-    :return: The merged list.
+        The function receives an unlimited number of lists and another parameter called separator (optional)
+        and returns one list consisting of all the lists received as parameters. If the separator parameter is provided,
+        it threads it as an object between any two lists, and if it is not provided, it threads the character "-" instead.
+        If the function does not receive lists at all - it will return None.
+        :param lists: The lists to be merged into one list.
+        :param separator: The separator between the lists.
+        :return: The merged list or None.
     """
     if not lists:
         return None
-    res_lst = []
-    for lst in lists:
-        res_lst += list(itertools.chain(lst))
-        res_lst.append(sep)
-    res_lst.pop()
-    return res_lst
+    [lst.append(separator) for lst in lists]
+    result_list = list(itertools.chain(*lists))
+    result_list.pop()
+    return result_list
