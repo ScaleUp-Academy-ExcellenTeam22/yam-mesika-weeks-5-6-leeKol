@@ -2,7 +2,7 @@ import datetime
 import random
 
 
-def get_random_date():
+def get_random_date() -> datetime:
     """
     The function receives from the user two dates that represent a range of dates,
     and returns a random date from the range.
@@ -13,7 +13,7 @@ def get_random_date():
     return (start_date + datetime.timedelta(days=random.randrange((end_date - start_date).days))).date()
 
 
-def is_monday(date):
+def is_monday(date: datetime) -> bool:
     """
     The function gets a date and checks if the date is Monday.
     :param date: The date under review.
@@ -21,9 +21,8 @@ def is_monday(date):
     """
     return date.weekday() == 0
 
-
-random_date = get_random_date()
-print(random_date)
-
-if is_monday(random_date):
-    print("I have no vinaigrette!")
+if __name__ == '__main__':
+    random_date = get_random_date()
+    print(random_date)
+    if is_monday(random_date):
+        print("I have no vinaigrette!")
