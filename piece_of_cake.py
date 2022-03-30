@@ -1,4 +1,6 @@
-def get_recipe_price(prices, optionals=[], **quantities):
+from functools import reduce
+
+def get_recipe_price(prices : dict, optionals : list =[], **quantities : int) -> int:
     """
     The function gets the ingredients needed to make a particular recipe, their prices per 100 grams,
     and the quantities needed, and returns the price to be paid for buying the ingredients.
@@ -9,8 +11,6 @@ def get_recipe_price(prices, optionals=[], **quantities):
     :param quantities: For each ingredient- the amount in grams that we want to buy for the recipe.
     :return: The price to pay for buying all the ingredients.
     """
-    price = 0
-    for key in prices:
-        if key not in optionals:
-            price += prices.get(key) * int(quantities.get(key)/100)
-    return price
+    new_prices = dict(filter(lambda ingredient: ingredient[0] not in optionals, prices.items()))
+    total_price = reduce(lambda price_sum, ingredient: price_sum + new_prices[ingredient] * int(quantities[ingredient] / 100), new_prices, 0)
+    return total_price
